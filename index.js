@@ -106,4 +106,4 @@ function sync() {
     });
 }
 
-sync();
+util.createPhotosFolder().then(() => sync());
