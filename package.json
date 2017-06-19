@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index",
     "start": "node index",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "cli": "node bin/cli"
   },
   "author": "mark reid",
   "license": "MIT",

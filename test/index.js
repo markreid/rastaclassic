@@ -11,6 +11,50 @@ const db = require('../lib/db');
 const util = require('../lib/util');
 
 
+
+
+function asyncCall(i) {
+  return new Promise((resolve, reject) => {
+    console.log(`asyncCall(${i})`);
+    setTimeout(() => {
+      if (i < 5) {
+        console.log('resolved');
+        return resolve(true);
+      }
+      console.log('rejected');
+      return reject(false);
+    }, 1500)
+  });
+}
+
+
+function* generatorFunction() {
+  let i = 0;
+  while(++i) {
+    yield asyncCall(i);
+  }
+}
+
+
+async function runThem() {
+  let i = 0;
+  while (++i) {
+    console.log({ i });
+    try {
+      await asyncCall(i);
+      console.log('loop it');
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+}
+
+runThem();
+
+
+
+
 const promiseFactory = (str, broken = false) => {
   return new Promise((resolve, reject) => {
     console.log(`start ${str}`);
@@ -33,8 +77,11 @@ const prommies = [
   () => promiseFactory('d'),
 ];
 
-util.sequentialPromises(prommies, false)
-.then(() => console.log('all done m80'));
+if (false ) util.sequentialPromises(prommies, true)
+.then((results) => {
+  console.log('all done m80');
+  console.log(results);
+});
 
 
 
