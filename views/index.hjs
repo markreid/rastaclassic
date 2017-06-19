@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rasta Surfboards - 13th Beach Surf Report</title>
+  <link rel="stylesheet" type="text/css" href="/public/style.css" />
+  <link rel="stylesheet" type="text/css" href="/public/css/lytebox.css" />
+</head>
+<body>
+
+  <div id="container">
+    <header id="header">
+      <div id="header-title">
+        <span>Rasta Surfboards</span>
+        <span class="show">For all your surf needs...we got u covered...Rasta</span>
+        <span>Contemporary Art...by Ross Harrison at www.rossharrison.com.au</span>
+        <span>Now on Instagram.....rastasurfco</span>
+      </div>
+      <div id="header-banner-img"></div>
+      <div id="header-menu"></div>
+    </header>
+
+    <div id="content">
+      <h3 id="date" class="heading2">{{date}}</h3>
+      <div id="image">
+        <a href="/public/photos/{{postGuid}}-0.jpg" rel="lytebox" title="Surf Report Photo">
+          <img src="/public/photos/{{postGuid}}-0.jpg" alt="click to enlarge surf photo" />
+        </a>
+      </div>
+      <div id="report" class="standardtext2">
+        {{text}}
+      </div>
+
+
+      <table id="data" height="50" cellspacing="1" cellpadding="1" align="center" border="1" width="100%">
+        <tbody>
+          <tr height="50%">
+            <td class="heading2" align="center" width="20%">Swell</td>
+            <td class="heading2" align="center" width="20%">Wind</td>
+            <td class="heading2" align="center" width="20%">Weather</td>
+            <td class="heading2" align="center" width="20%" colspan="2">Tides</td>
+          </tr>
+          <tr>
+            <td class="standardtext2" align="center">{{swell}}</td>
+            <td class="standardtext2" align="center">{{wind}}</td>
+            <td class="standardtext2" align="center">{{weather}}</td>
+            <td class="standardtext2" align="center">{{ht}}</td>
+            <td class="standardtext2" align="center">{{lt}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="links">
+        <a class="link">Forecast</a>
+        <a class="link">Wind Direction</a>
+        <a class="link">Radar</a>
+        <a class="link">Tides</a>
+      </div>
+
+    </div>
+
+    <footer id="footer">
+      <span id="copyright" class="copyright">© Copyright 2009 Rasta Surfboards. All Rights Reserved</span>
+      <span id="gunrider">Site by <span class="link">GunRider Design</span></span>
+    </footer>
+
+  </div>
+
+
+  <script>
+    // rotate the header banner titles
+    (function rotateBanner() {
+      var headerTitle = document.getElementById('header-title');
+      var titles = Array.prototype.slice.call(headerTitle.children);
+      var active = 0;
+      setInterval(function() {
+        headerTitle.querySelector('.show').classList.remove('show');
+        titles[active].classList.add('show');
+        active++;
+        if (active >= titles.length) active = 0;
+      }, 5000);
+    })();
+  </script>
+  <script src="/public/js/lytebox.js"></script>
+
+</body>
+</html>

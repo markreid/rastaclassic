@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+/* reset */
+h1, h2, h3, h4 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+body {
+  background: url('/public/img/RastaBackground.jpg');
+
+}
+
+#container {
+  border: 5px #fff ridge;
+  width: 770px;
+  margin: 0 auto 15px;
+}
+
+#header {
+  background: #003466;
+  padding: 2px 0 0;
+}
+
+#header-title {
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  color: yellow;
+  line-height: 20px;
+  font-family: Book Antiqua;
+  padding: 0 0 4px;
+}
+
+#header-title span {
+  display: none;
+}
+
+#header-title span.show {
+  display: block;
+}
+
+#header-banner-img {
+  background: url('/public/img/RastaSurflogo7.jpg');
+  width: 100%;
+  height: 57px;
+}
+
+#header-menu {
+  height: 29px;
+}
+
+#content {
+  background: #069 url('/public/img/backg.gif') repeat-y;
+  padding: 1px 10px 5px 96px;
+}
+
+#date {
+  text-align: center;
+  width: 100%;
+  padding-top: 6px;
+}
+
+#image {
+  width: 464px;
+  border-style: outset;
+  margin: 22px auto;
+  line-height: 0;
+}
+
+#image img {
+  width: 100%;
+  height: auto;
+}
+
+#report {
+  margin: 20px auto;
+}
+
+#data {
+  margin: 20px auto;
+}
+
+#links {
+  display: flex;
+  justify-content: space-around;
+}
+
+#footer {
+  background: #036;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Footlight MT Light;
+  color: white;
+  padding: 0 15px 0 4px;
+}
+
+
+/* from rasta's css */
+.heading2 {
+  font-size: 18px;
+  color: Yellow;
+  line-height: 25px;
+  font-family: Century Gothic;
+}
+
+.standardtext2 {
+  font-size: 12px;
+  color: white;
+  line-height: 18px;
+  font-family: Verdana;
+  text-decoration: none;
+}
+
+.copyright {
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 16px;
+  font-family: Footlight MT Light;
+  text-decoration: none;
+  background-color: #003366;
+  border-bottom-style: none;
+  border-top-style: none;
+}
+
+.link {
+  color: lime;
+  font-size: 18px;
+  line-height: 20px;
+  font-family: Bradley Hand ITC, Book Antiqua, Times New Roman;
+}
+
+.link:hover {
+  color: yellow;
+  cursor: pointer;
+}
+
+
+#data, #links {
+  display: none; /* still figuring out how to parse these */
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rasta Surfboards - 13th Beach Surf Report</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+<body>
+
+  <div id="container">
+    <header id="header">
+      <div id="header-title">
+        <span>Rasta Surfboards</span>
+        <span class="show">For all your surf needs...we got u covered...Rasta</span>
+        <span>Contemporary Art...by Ross Harrison at www.rossharrison.com.au</span>
+        <span>Now on Instagram.....rastasurfco</span>
+      </div>
+      <div id="header-banner-img"></div>
+      <div id="header-menu"></div>
+    </header>
+
+    <div id="content">
+      <h3 id="date" class="heading2">Sunday, 7 September 2014 - 8:30 AM</h3>
+      <div id="image">
+        <img src="temp/report-photo.jpg" alt="click to enlarge surf photo" />
+      </div>
+      <div id="report" class="standardtext2">
+        Happy farters day….ooh so rude of me….i meant happy farters day….ooh again….you know what I mean….to all you farters…enjoy your special day….being a farter is one of the greatest vocations in life….a childs love for their farter is a beautiful thing…..being a farter in these modern times are challenging….so many demands on farterhood….but as we all know farterly love one true love….though I digress…super clean surf at 13th and townies…ideal for a paddle…solid 2 to 3ft…magnificent sunshine….all day…go surfing….Monday will be north to north east at 19K’s and 2 to 3ft….clean head high surf at 13th and townies….fresh offshore conditions….time for a sickie me thinks….Tuesday will be north to north west at 20K’s and 3 to 4ft….good waves at 13th and townies….good waves also on the reefs from Possos to Belss region….Wednesday will be west to north west at 16K’s and 3 to 4ft…more clean surf at 13th and townies…good waves again on the reefs too…so much choice so little time….stay upright and make a difference Ross Rasta Surf Co
+      </div>
+
+
+      <table id="data" height="50" cellspacing="1" cellpadding="1" align="center" border="1" width="100%">
+        <tbody>
+          <tr height="50%">
+            <td class="heading2" align="center" width="20%">Swell</td>
+            <td class="heading2" align="center" width="20%">Wind</td>
+            <td class="heading2" align="center" width="20%">Weather</td>
+            <td class="heading2" align="center" width="20%" colspan="2">Tides</td>
+          </tr>
+          <tr>
+            <td class="standardtext2" align="center">2-3ft</td>
+            <td class="standardtext2" align="center">North</td>
+            <td class="standardtext2" align="center">Sunny</td>
+            <td class="standardtext2" align="center">H 9:30 AM</td>
+            <td class="standardtext2" align="center">L 2:35 PM</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="links">
+        <a class="link">Forecast</a>
+        <a class="link">Wind Direction</a>
+        <a class="link">Radar</a>
+        <a class="link">Tides</a>
+      </div>
+
+    </div>
+
+    <footer id="footer">
+      <span id="copyright" class="copyright">© Copyright 2009 Rasta Surfboards. All Rights Reserved</span>
+      <span id="gunrider">Site by <span class="link">GunRider Design</span></span>
+    </footer>
+
+  </div>
+
+
+  <script>
+    // rotate the header banner titles
+    (function rotateBanner() {
+      var headerTitle = document.getElementById('header-title');
+      var titles = Array.prototype.slice.call(headerTitle.children);
+      var active = 0;
+      setInterval(function() {
+        headerTitle.querySelector('.show').classList.remove('show');
+        titles[active].classList.add('show');
+        active++;
+        if (active >= titles.length) active = 0;
+      }, 5000);
+    })
+  </script>
+
+</body>
+</html>
