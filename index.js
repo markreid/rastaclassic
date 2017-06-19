@@ -22,7 +22,9 @@ const app = express();
 app.use(morgan('dev', {
   stream: log.morganStream,
 }));
-app.use('/public', express.static('./public'));
+app.use('/public', express.static('./public', {
+  maxAge: 604800000, // cache for a week
+}));
 app.engine('hjs', engines.hogan);
 
 // configure the routes
