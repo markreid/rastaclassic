@@ -27,11 +27,41 @@ app.use('/public', express.static('./public', {
 }));
 app.engine('hjs', engines.hogan);
 
+
 // configure the routes
+app.get('/reports/all', (req, res) => { // eslint-disable-line arrow-body-style
+  return db.Report.findAll({
+    attributes: ['id', 'date'],
+    order: [
+      ['postGuid', 'DESC'],
+    ]
+  })
+    .then((reports) => {
+      res.render('report-list.hjs', {
+        reports,
+      });
+    });
+});
+
+app.get('/reports/:id', (req, res) => {
+  const { id } = req.params;
+  return db.getReportById(id)
+    .then((report) => {
+      if (!report) {
+        return res.status(404).send('404 bro');
+      }
+      return res.render('report.hjs', report);
+    })
+    .catch((error) => {
+      log.error(error);
+      res.status(500).send('500');
+    });
+});
+
 app.get('/:offset?', (req, res) => {
   const { offset } = req.params;
   return db.getLatestReport(Number(offset) || 0)
-    .then(report => res.render('index.hjs', report))
+    .then(report => res.render('report.hjs', report))
     .catch((error) => {
       log.error(error);
       res.status(500).send({ error });

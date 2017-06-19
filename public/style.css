@@ -105,6 +105,11 @@ body {
   padding: 0 15px 0 4px;
 }
 
+#report-list a {
+  color: white;
+  padding-left: 2em;
+}
+
 
 /* from rasta's css */
 .heading2 {
