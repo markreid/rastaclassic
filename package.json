@@ -7,7 +7,8 @@
     "dev": "nodemon index",
     "start": "node index",
     "lint": "eslint .",
-    "cli": "node bin/cli"
+    "cli": "node bin/cli",
+    "build": "bin/build.sh"
   },
   "author": "mark reid",
   "license": "MIT",

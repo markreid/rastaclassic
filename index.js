@@ -27,6 +27,9 @@ app.use('/public', express.static('./public', {
 }));
 app.engine('hjs', engines.hogan);
 
+// make cachebust available as context to all .render() calls
+app.locals.cachebust = util.generateCachebust();
+
 
 // configure the routes...
 
