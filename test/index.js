@@ -13,6 +13,12 @@ const util = require('../lib/util');
 
 
 
+
+db.getAdjacent(47).then(reports => console.log(reports));
+
+
+
+
 function asyncCall(i) {
   return new Promise((resolve, reject) => {
     console.log(`asyncCall(${i})`);
@@ -50,7 +56,7 @@ async function runThem() {
   }
 }
 
-runThem();
+// runThem();
 
 
 

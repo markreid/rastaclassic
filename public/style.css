@@ -94,6 +94,12 @@ body {
   justify-content: space-around;
 }
 
+#next-prev {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 20px;
+}
+
 #footer {
   background: #036;
   height: 40px;

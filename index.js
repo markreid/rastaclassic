@@ -44,7 +44,7 @@ app.get('/', (req, res) => db.getLatestReport()
   }));
 
 // report index
-app.get('/reports/all', (req, res) => { // eslint-disable-line arrow-body-style
+app.get('/reports', (req, res) => { // eslint-disable-line arrow-body-style
   return db.Report.findAll({
     attributes: ['id', 'date'],
     order: [

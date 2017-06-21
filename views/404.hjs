@@ -24,7 +24,7 @@
       <div id="not-found">
         <h2>I digress...</h2>
         <p>No surf report at this url.</p>
-        <p>Try checking the <a href="/reports/all">index</a>.</p>
+        <p>Try checking the <a href="/reports">index</a>.</p>
       </div>
     </div>
 
