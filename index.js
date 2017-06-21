@@ -28,13 +28,28 @@ app.use('/public', express.static('./public', {
 app.engine('hjs', engines.hogan);
 
 
-// configure the routes
+// configure the routes...
+
+// home - latest report
+app.get('/', (req, res) => db.getLatestReport()
+  .then((report) => {
+    if (!report) {
+      return res.status(404).render('404.hjs');
+    }
+    return res.render('report.hjs', report);
+  })
+  .catch((error) => {
+    log.error(error);
+    res.status(500).send({ error });
+  }));
+
+// report index
 app.get('/reports/all', (req, res) => { // eslint-disable-line arrow-body-style
   return db.Report.findAll({
     attributes: ['id', 'date'],
     order: [
       ['postGuid', 'DESC'],
-    ]
+    ],
   })
     .then((reports) => {
       res.render('report-list.hjs', {
@@ -43,12 +58,13 @@ app.get('/reports/all', (req, res) => { // eslint-disable-line arrow-body-style
     });
 });
 
+// report by id
 app.get('/reports/:id', (req, res) => {
   const { id } = req.params;
   return db.getReportById(id)
     .then((report) => {
       if (!report) {
-        return res.status(404).send('404 bro');
+        return res.status(404).render('404.hjs');
       }
       return res.render('report.hjs', report);
     })
@@ -58,15 +74,9 @@ app.get('/reports/:id', (req, res) => {
     });
 });
 
-app.get('/:offset?', (req, res) => {
-  const { offset } = req.params;
-  return db.getLatestReport(Number(offset) || 0)
-    .then(report => res.render('report.hjs', report))
-    .catch((error) => {
-      log.error(error);
-      res.status(500).send({ error });
-    });
-});
+// anything else is a 404
+app.get('*', (req, res) => res.status(404).render('404.hjs'));
+
 
 // and away we go...
 app.listen(PORT, () => {
