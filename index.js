@@ -12,6 +12,7 @@ const db = require('./lib/db');
 const util = require('./lib/util');
 const router = require('./lib/router');
 const rasta = require('./lib/rasta');
+const msw = require('./lib/magicseaweed');
 
 const { PORT, SYNC_EVERY_SECONDS } = process.env;
 
@@ -45,4 +46,6 @@ db.sequelize.sync()
   .then(() => log.info('synced sequelize models'))
   .then(() => util.createPhotosFolder())
   .then(() => log.debug('created photos folder'))
-  .then(() => rasta.sync());
+  .then(() => rasta.sync())
+  .then(() => msw.sync());
+

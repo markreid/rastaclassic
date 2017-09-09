@@ -69,4 +69,33 @@ describe('lib/util', async () => {
       assert.equal(parsed.image, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/001.jpg');
     });
   });
+
+  describe('isTimestampFromToday', () => {
+    it('tells you whether a timestamp is from today', () => {
+      assert.equal(util.isTimestampFromToday(new Date()), true);
+      assert.equal(util.isTimestampFromToday(new Date().valueOf() - (1000 * 60 * 60 * 25)), false);
+    });
+
+    it('throws if you pass it nothing', () => {
+      assert.throws(() => util.isTimestampFromToday());
+    });
+  });
+
+  describe('msUntil()', () => {
+    it('returns ms between two timestamps', () => {
+      const now = Date.now();
+      const later = now + 1500;
+      assert.equal(util.msUntil(later, now), 1500);
+    });
+
+    it('returns zero if the time is in the past', () => {
+      const now = Date.now();
+      const previously = now - 1500;
+      assert.equal(util.msUntil(previously, now), 0);
+    });
+
+    it('throws without arguments', () => {
+      assert.throws(() => util.msUntil());
+    });
+  });
 });
