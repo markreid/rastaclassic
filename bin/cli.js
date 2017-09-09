@@ -8,6 +8,9 @@ require('dotenv-safe').load();
 
 const repl = require('repl');
 
+const db = require('../lib/db');
+const magicSeaweed = require('../lib/magicseaweed');
+const rasta = require('../lib/rasta');
 const util = require('../lib/util');
 
 
@@ -29,15 +32,32 @@ function printFunctions(obj, depth = 1) {
 }
 
 const commands = {
-  sync: () => util.fetchLatest(),
-  syncAll: () => util.syncAll(),
+  sync: () => rasta.fetchLatest(),
+  syncAll: () => rasta.syncAll(),
   help: () => printFunctions(commands),
+  fetchForecast: () => magicSeaweed.fetchForecast(),
+  fetchAndSave: () => magicSeaweed.fetchAndSave(),
+  timeUntilFetch: () => magicSeaweed.timeUntilFetch(),
+  fsync: () => magicSeaweed.sync(),
 };
 
-console.log('rastaclassic CLI.');
-console.log('available commands:');
-commands.help();
+const printRows = (rows) => {
+  const toPrint = Array.isArray(rows) ? rows : [rows];
+  console.log(toPrint.map(x => x.get()));
+};
 
-const r = repl.start('> ');
-r.context = Object.assign(r.context, commands);
+
+db.sequelize.sync()
+  .then(() => {
+    console.log('rastaclassic CLI.');
+    console.log('available commands:');
+    commands.help();
+
+    const r = repl.start('> ');
+    r.context = Object.assign(r.context, commands, {
+      db,
+      printRows,
+      util,
+    });
+  });
 

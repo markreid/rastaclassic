@@ -1,136 +1,101 @@
-/* eslint-disable */
+/* eslint-env mocha */
 
 /**
- * poor man's tests for checking the parse regexes.
- * will probably abandon these tbh.
+ * unit tests
  */
-
 require('dotenv-safe').load();
 
-const db = require('../lib/db');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const { assert } = require('chai');
+
+const readFileAsync = promisify(fs.readFile);
+
 const util = require('../lib/util');
 
+describe('lib/util', async () => {
+  let xml;
 
-
-
-
-db.getAdjacent(47).then(reports => console.log(reports));
-
-
-
-
-function asyncCall(i) {
-  return new Promise((resolve, reject) => {
-    console.log(`asyncCall(${i})`);
-    setTimeout(() => {
-      if (i < 5) {
-        console.log('resolved');
-        return resolve(true);
-      }
-      console.log('rejected');
-      return reject(false);
-    }, 1500)
+  before(async () => {
+    xml = await readFileAsync(path.resolve(__dirname, './sample-feed.xml'), { encoding: 'utf8' });
   });
-}
 
-
-function* generatorFunction() {
-  let i = 0;
-  while(++i) {
-    yield asyncCall(i);
-  }
-}
-
-
-async function runThem() {
-  let i = 0;
-  while (++i) {
-    console.log({ i });
-    try {
-      await asyncCall(i);
-      console.log('loop it');
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
-  }
-}
-
-// runThem();
-
-
-
-
-const promiseFactory = (str, broken = false) => {
-  return new Promise((resolve, reject) => {
-    console.log(`start ${str}`);
-    setTimeout(() => {
-      if (broken) {
-        console.log(`reject ${str}`);
-        reject(str);
-      } else {
-        console.log(`resolve ${str}`);
-        resolve(str);
-      }
-    }, 300);
+  describe('parsePostsFromFeed', () => {
+    it('parse posts from xml', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      assert.equal(posts.length, 10);
+      assert.isObject(posts[0]);
+      assert.ok(posts[0].title);
+      assert.ok(posts[0].guid);
+      assert.ok(posts[0]['content:encoded']);
+    });
   });
-}
 
-const prommies = [
-  () => promiseFactory('a'),
-  () => promiseFactory('b'),
-  () => promiseFactory('c', true),
-  () => promiseFactory('d'),
-];
+  describe('filterPostsForReports', () => {
+    it('removes non-surf report posts', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      const filtered = util.filterPostsForReports(posts);
+      assert.equal(filtered.length, 5);
+    });
+  });
 
-if (false ) util.sequentialPromises(prommies, true)
-.then((results) => {
-  console.log('all done m80');
-  console.log(results);
+  describe('parseGuid', () => {
+    it('parses a guid from a permalink', () => {
+      const url = 'http://rastasurfboards.com.au/?p=1083';
+      const guid = util.parseGuid(url);
+      assert.equal(guid, 1083);
+    });
+
+    it('throws on a bad url', () => {
+      const url = 'http://somethingelse.net';
+      assert.throws(() => util.parseGuid(url));
+    });
+  });
+
+  describe('parseReport', () => {
+    it('parses the properties from a report', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      // 1 is the first surf report
+      const post = posts[1];
+      const parsed = util.parseReport(post);
+
+      assert.equal(parsed.postGuid, 1083);
+      assert.equal(parsed.postTimestamp, 'Fri, 08 Sep 2017 22:52:50 +0000');
+      assert.equal(parsed.postContent.substr(0, 40), '<p><a href="http://rastasurfboards.com.a');
+      assert.equal(parsed.postTitle, '13th Beach Surf Report Cylinders 09.09.17');
+
+      assert.equal(parsed.postImages, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/001.jpg,http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/008-1.jpg');
+      assert.equal(parsed.image, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/001.jpg');
+    });
+  });
+
+  describe('isTimestampFromToday', () => {
+    it('tells you whether a timestamp is from today', () => {
+      assert.equal(util.isTimestampFromToday(new Date()), true);
+      assert.equal(util.isTimestampFromToday(new Date().valueOf() - (1000 * 60 * 60 * 25)), false);
+    });
+
+    it('throws if you pass it nothing', () => {
+      assert.throws(() => util.isTimestampFromToday());
+    });
+  });
+
+  describe('msUntil()', () => {
+    it('returns ms between two timestamps', () => {
+      const now = Date.now();
+      const later = now + 1500;
+      assert.equal(util.msUntil(later, now), 1500);
+    });
+
+    it('returns zero if the time is in the past', () => {
+      const now = Date.now();
+      const previously = now - 1500;
+      assert.equal(util.msUntil(previously, now), 0);
+    });
+
+    it('throws without arguments', () => {
+      assert.throws(() => util.msUntil());
+    });
+  });
 });
-
-
-
-if (false ) util.createPhotosFolder()
-  .then(() => util.grabPhoto('http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/06/009.jpg'))
-  .then(() => {
-    console.log('done');
-  })
-  .catch((error) => {
-    console.error('error!');
-    console.error(error);
-  });
-
-
-
-
-
-if (false) db.Report.findAll()
-  .then((reports) => {
-    console.log('testing swell parser...');
-    reports.forEach((report) => {
-      const parsed = util.parseSwell(report.get('text'));
-      if (parsed) {
-        // console.log(parsed);
-        // console.log(report.get('text').substr(0, 100));
-      } else {
-        console.error('unable to parse!');
-      }
-    });
-
-    console.log('testing tides parser...');
-    reports.forEach((report) => {
-      const parsed = util.parseTides(report.get('text'));
-      if (!parsed.ht) {
-        console.log(report.get('text'));
-      } else {
-        console.log(parsed);
-      }
-    });
-
-    reports.forEach((report) => {
-      const parsed = util.parseWeather(report.get('text'));
-      console.log(parsed);
-    });
-  });
-
