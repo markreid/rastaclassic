@@ -9,6 +9,8 @@ require('dotenv-safe').load();
 const repl = require('repl');
 
 const util = require('../lib/util');
+const db = require('../lib/db');
+const magicSeaweed = require('../lib/magicseaweed');
 
 
 // recursively iterate an object and print all keys
@@ -32,6 +34,8 @@ const commands = {
   sync: () => util.fetchLatest(),
   syncAll: () => util.syncAll(),
   help: () => printFunctions(commands),
+  fetchForecast: () => magicSeaweed.fetchForecast(),
+  saveForecast: () => magicSeaweed.saveForecast(),
 };
 
 console.log('rastaclassic CLI.');
@@ -39,5 +43,5 @@ console.log('available commands:');
 commands.help();
 
 const r = repl.start('> ');
-r.context = Object.assign(r.context, commands);
+r.context = Object.assign(r.context, commands, { db });
 
