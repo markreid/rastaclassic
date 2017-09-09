@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Forecast', {
     primaryKey: true,
     autoIncrement: true,
   },
+  spotId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   json: {
     type: DataTypes.STRING,
     allowNull: false,
