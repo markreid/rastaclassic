@@ -8,9 +8,9 @@ require('dotenv-safe').load();
 
 const repl = require('repl');
 
-const util = require('../lib/util');
 const db = require('../lib/db');
 const magicSeaweed = require('../lib/magicseaweed');
+const rasta = require('../lib/rasta');
 
 
 // recursively iterate an object and print all keys
@@ -31,8 +31,8 @@ function printFunctions(obj, depth = 1) {
 }
 
 const commands = {
-  sync: () => util.fetchLatest(),
-  syncAll: () => util.syncAll(),
+  sync: () => rasta.fetchLatest(),
+  syncAll: () => rasta.syncAll(),
   help: () => printFunctions(commands),
   fetchForecast: () => magicSeaweed.fetchForecast(),
   saveForecast: () => magicSeaweed.saveForecast(),
