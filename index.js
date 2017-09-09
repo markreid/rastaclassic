@@ -77,6 +77,21 @@ app.get('/reports/:id', (req, res) => {
     });
 });
 
+// forecast by ID
+app.get('/forecasts/:id', (req, res) => {
+  const { id } = req.params;
+  return db.getForecastById(id)
+    .then((forecast) => {
+      if (!forecast) {
+        return res.status(404).send({
+          error: 404,
+        });
+      }
+
+      return res.send(forecast);
+    });
+});
+
 // anything else is a 404
 app.get('*', (req, res) => res.status(404).render('404.hjs'));
 
