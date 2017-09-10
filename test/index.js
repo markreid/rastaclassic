@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const { assert } = require('chai');
+const moment = require('moment');
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -96,6 +97,40 @@ describe('lib/util', async () => {
 
     it('throws without arguments', () => {
       assert.throws(() => util.msUntil());
+    });
+  });
+
+  describe('timezone handling', () => {
+    it('requires you to specify timezones', () => {
+      // had an issue with timezone parsing.
+      // at 'time' we pulled 'forecastTimestamp'
+      // and incorrectly determined that we already had today's
+      // report, and that the next one would be fetched at
+      // Mon Sep 11 2017 08:30:00 GMT+1000
+
+      // time was 0830 the 10th, melbourne
+      // forecastTimestamp is 2337 the 9th, melbourne
+      // so we expected that it would tell us to fetch now
+      const time = '2017-09-09T18:30:00.000-04:00';
+      const forecastTimestamp = '2017-09-09T13:37:20.000Z';
+      const expectedFetch = '2017-11-09T08:30:00.000+10:00';
+
+      const efValue = moment(expectedFetch).valueOf();
+      const ft = util.nextFetchTime(forecastTimestamp, time);
+      const ftValue = moment(ft).valueOf();
+
+      assert.equal(efValue, ftValue);
+
+      // assert.equal(util.isTimestampFromToday(forecastTimestamp, moment(time)), true);
+
+      // assert.equal()
+
+      // it went
+      // util.nextFetchTime(timestamp) -> 11th 830am
+      //    isTimestampFromToday(timestamp) -> false
+      // so it added a day
+
+
     });
   });
 });
