@@ -39,10 +39,15 @@ app.listen(PORT, () => {
 });
 
 
+log.info(`
+╦═╗┌─┐┌─┐┌┬┐┌─┐╔═╗┬  ┌─┐┌─┐┌─┐┬┌─┐
+╠╦╝├─┤└─┐ │ ├─┤║  │  ├─┤└─┐└─┐││
+╩╚═┴ ┴└─┘ ┴ ┴ ┴╚═╝┴─┘┴ ┴└─┘└─┘┴└─┘
+`);
+
 // sync sequelize models,
 // ensure photos folder exists,
 // sync with rasta's server
-log.info('rastaclassic is booting up...');
 db.sequelize.sync()
   .then(() => log.info('synced sequelize models'))
   .then(() => util.createPhotosFolder())
