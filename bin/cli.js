@@ -35,6 +35,7 @@ const commands = {
   sync: () => rasta.fetchLatest(),
   syncAll: () => rasta.syncAll(),
   help: () => printFunctions(commands),
+  fetchLatest: () => rasta.fetchLatest(),
   fetchForecast: () => magicSeaweed.fetchForecast(),
   fetchAndSave: () => magicSeaweed.fetchAndSave(),
   timeUntilFetch: () => magicSeaweed.timeUntilFetch(),
