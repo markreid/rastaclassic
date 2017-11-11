@@ -22,14 +22,19 @@
 
     <div id="content">
       <h3 id="date" class="heading2">{{date}}</h3>
-      <div id="image">
-        <a href="/public/photos/{{postGuid}}-0.jpg" rel="lytebox[photos]" title="Surf Report Photo">
-          <img src="/public/photos/{{postGuid}}-0.jpg" alt="click to enlarge surf photo" />
-        </a>
-        {{#extraImages}}
-          <a href="/public/photos/{{filename}}" rel="lytebox[photos]" title="Surf Report Photo" style="display:none"></a>
-        {{/extraImages}}
-      </div>
+      {{#image}}
+        <div id="image">
+          <a href="/public/photos/{{postGuid}}-0.jpg" rel="lytebox[photos]" title="Surf Report Photo">
+            <img src="/public/photos/{{postGuid}}-0.jpg" alt="click to enlarge surf photo" />
+          </a>
+          {{#extraImages}}
+            <a href="/public/photos/{{filename}}" rel="lytebox[photos]" title="Surf Report Photo" style="display:none"></a>
+          {{/extraImages}}
+        </div>
+      {{/image}}
+      {{^image}}
+        <div id="image" class="noimage"></div>
+      {{/image}}
 
       <div id="report" class="standardtext2">
         {{text}}
