@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Report', {
   },
   postImages: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   text: {
     type: DataTypes.STRING,
@@ -38,8 +38,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Report', {
   },
   image: {
     type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
+    allowNull: true,
   },
   date: {
     type: DataTypes.STRING,
