@@ -10,7 +10,9 @@
     "cli": "node bin/cli",
     "build": "bin/build.sh",
     "test": "mocha test",
-    "test:watch": "mocha --watch test"
+    "test:watch": "mocha --watch test",
+    "migrate": "sequelize db:migrate --config migrations/config.json",
+    "migrate:undo": "sequelize db:migrate:undo --config migrations/config.json"
   },
   "author": "mark reid",
   "license": "MIT",
@@ -35,6 +37,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "mocha": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "sequelize-cli": "^3.0.0"
   }
 }

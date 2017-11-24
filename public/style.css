@@ -74,11 +74,16 @@ body {
   border-style: outset;
   margin: 22px auto;
   line-height: 0;
+  min-height: 280px;
 }
 
 #image img {
   width: 100%;
   height: auto;
+}
+
+#image.noimage {
+  background: slategrey;
 }
 
 #report {
