@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Report', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  postVideos: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   text: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -41,31 +45,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Report', {
     allowNull: true,
   },
   date: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
-  },
-  swell: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
-  },
-  wind: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
-  },
-  weather: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
-  },
-  ht: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: '',
-  },
-  lt: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: '',
