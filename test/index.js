@@ -56,17 +56,44 @@ describe('lib/util', async () => {
   describe('parseReport', () => {
     it('parses the properties from a report', async () => {
       const posts = await util.parsePostsFromFeed(xml);
-      // 1 is the first surf report
       const post = posts[1];
       const parsed = util.parseReport(post);
 
-      assert.equal(parsed.postGuid, 1083);
-      assert.equal(parsed.postTimestamp, 'Fri, 08 Sep 2017 22:52:50 +0000');
-      assert.equal(parsed.postContent.substr(0, 40), '<p><a href="http://rastasurfboards.com.a');
-      assert.equal(parsed.postTitle, '13th Beach Surf Report Cylinders 09.09.17');
+      assert.equal(parsed.postGuid, 1583);
+      assert.equal(parsed.postTimestamp, 'Fri, 24 Nov 2017 21:15:52 +0000');
+      assert.equal(parsed.postContent.substr(0, 40), '<blockquote><p>13th Beach Surf Report 25');
+      assert.equal(parsed.postTitle, '13th Beach Surf Report 25.11.17');
 
-      assert.equal(parsed.postImages, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/001.jpg,http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/008-1.jpg');
-      assert.equal(parsed.image, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/09/001.jpg');
+      assert.equal(parsed.image, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/A1A691B2-7DD5-4029-8069-FE2631E4FC0D.jpeg');
+      assert.equal(parsed.postImages, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/A1A691B2-7DD5-4029-8069-FE2631E4FC0D.jpeg');
+    });
+
+    it('parses a post with multiple photos', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      const post = posts[2];
+      const parsed = util.parseReport(post);
+
+      assert.equal(parsed.postGuid, 1578);
+      assert.equal(parsed.image, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/318E3688-7E63-4B02-B18B-6D843982F3D0.jpeg');
+      assert.equal(parsed.postImages, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/318E3688-7E63-4B02-B18B-6D843982F3D0.jpeg,http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/F57DBE90-51C8-487A-A417-EEC781DA5B1B.jpeg');
+    });
+
+    it('parses video links', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      const post = posts[1];
+      const parsed = util.parseReport(post);
+
+      assert.equal(parsed.postGuid, 1583);
+      assert.equal(parsed.postVideos, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/E936A2BB-C20A-414C-9197-24CE04E3EF89.mov');
+    });
+
+    it('parses embedded videos', async () => {
+      const posts = await util.parsePostsFromFeed(xml);
+      const post = posts[4];
+      const parsed = util.parseReport(post);
+
+      assert.equal(parsed.postGuid, 1571);
+      assert.equal(parsed.postVideos, 'http://rastasurfboards.com.au/wordpress/wp-content/uploads/2017/11/9E4F4B19-E4DF-49D1-8DB9-01488D37EE60.mp4');
     });
   });
 

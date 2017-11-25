@@ -175,3 +175,14 @@ body {
 #data, #links {
   display: none; /* still figuring out how to parse these */
 }
+
+#videos {
+  margin: 0 0 22px;
+}
+
+.video-link {
+  display: block;
+  margin: 0;
+  text-align: center;
+  color: white;
+}
