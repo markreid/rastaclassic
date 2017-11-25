@@ -36,6 +36,12 @@
         <div id="image" class="noimage"></div>
       {{/image}}
 
+      <div id="videos">
+        {{#postVideos}}
+          <a class="video-link" href="{{.}}" target="_blank">video</a>
+        {{/postVideos}}
+      </div>
+
       <div id="report" class="standardtext2">
         {{text}}
       </div>
