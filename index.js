@@ -48,5 +48,8 @@ db.sequelize.sync()
   .then(() => util.createPhotosFolder())
   .then(() => log.info('created photos folder'))
   .then(() => rasta.sync())
-  .then(() => msw.sync());
-
+  .then(() => msw.sync())
+  .catch((err) => {
+    log.error('Caught an exception in the startup sequence');
+    log.error(err);
+  });
