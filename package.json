@@ -21,13 +21,13 @@
     "consolidate": "^0.14.5",
     "debug": "^3.1.0",
     "dotenv-safe": "^4.0.4",
-    "express": "^4.15.3",
+    "express": "^4.16.3",
     "hogan.js": "^3.0.2",
-    "moment": "^2.18.1",
+    "moment": "^2.22.2",
     "moment-timezone": "^0.5.13",
-    "morgan": "^1.8.2",
+    "morgan": "^1.9.0",
     "node-fetch": "^1.7.1",
-    "sequelize": "^4.1.0",
+    "sequelize": "^4.38.0",
     "sqlite3": "^3.1.8",
     "winston": "^2.3.1",
     "xml2js": "^0.4.17"
@@ -38,7 +38,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "mocha": "^3.5.0",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.18.3",
     "sequelize-cli": "^3.0.0"
   }
 }
